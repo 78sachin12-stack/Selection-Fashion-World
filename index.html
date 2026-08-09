@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selection Fashion World</title>
+<style>
+:root{--maroon:#6E1E2B;--dark:#4A121D;--gold:#C9A24B;--ivory:#F6EFE4;--teal:#1F4E4A;--green:#25D366;--red:#B23A3A;--charcoal:#241C18}
+*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--charcoal);font-family:Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}header{background:var(--maroon);color:white;position:sticky;top:0;z-index:10}.nav{max-width:1200px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-family:Georgia,serif;font-size:22px}.brand span{color:var(--gold)}.nav button{padding:9px 13px;background:var(--gold);color:var(--dark);font-weight:700}.hero{text-align:center;padding:45px 20px 20px}.hero h1{font-family:Georgia,serif;font-size:42px;margin:8px}.hero p{opacity:.7}.filters{text-align:center;padding:15px}.filter{background:white;color:var(--maroon);border:1px solid #ddd;border-radius:20px;padding:8px 16px;margin:4px}.filter.active{background:var(--maroon);color:white}.grid{max-width:1200px;margin:auto;padding:25px 20px 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}.card{background:white;border:1px solid #eadfd4;box-shadow:0 5px 18px #0000000d}.pic{height:230px;background:#eee8df;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.pic img{width:100%;height:100%;object-fit:cover}.pic .noimg{opacity:.45;text-align:center}.body{padding:16px}.cat{font-size:12px;opacity:.55;text-transform:uppercase}.price{color:var(--maroon);font-size:22px;font-weight:bold;margin-top:10px}.mrp{text-decoration:line-through;opacity:.45;font-size:13px;margin-left:8px}.add{width:100%;margin-top:14px;padding:11px;background:var(--maroon);color:white;font-weight:bold}.add:disabled{background:#bbb}.cartBtn{background:var(--gold)!important}.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:20}.overlay.show{display:block}.drawer{position:fixed;right:0;top:0;width:min(430px,94vw);height:100%;background:var(--ivory);z-index:21;transform:translateX(100%);transition:.25s;display:flex;flex-direction:column}.drawer.show{transform:translateX(0)}.drawerHead{padding:18px;background:var(--maroon);color:white;display:flex;justify-content:space-between}.cartItems{padding:15px;overflow:auto;flex:1}.item{padding:12px 0;border-bottom:1px solid #ddd}.qty button{width:25px;height:25px}.drawerFoot{padding:16px;border-top:1px solid #ddd}.drawerFoot input,.drawerFoot textarea,.drawerFoot select{width:100%;padding:10px;margin:5px 0 10px;border:1px solid #ccc}.pay{padding:11px;border:1px solid #ccc;background:white;margin:4px 0}.pay.active{border-color:var(--maroon);background:#f4e5e8}.checkout{width:100%;padding:14px;background:var(--green);color:white;font-weight:bold}.admin{display:none;position:fixed;inset:0;background:var(--ivory);z-index:30;overflow:auto}.admin.show{display:block}.adminHead{background:var(--charcoal);color:white;padding:17px 20px;display:flex;justify-content:space-between}.adminWrap{max-width:1100px;margin:auto;padding:20px}.tabs button{padding:10px 15px;margin:4px;background:white;border:1px solid #ddd}.tabs .active{background:var(--maroon);color:white}.panel{display:none}.panel.active{display:block}.box,.order,.delivery{background:white;border:1px solid #ddd;padding:18px;margin:12px 0}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.row input,.row select{padding:10px;border:1px solid #ccc}.primary{background:var(--maroon);color:white;padding:10px 15px}.green{background:var(--green);color:white;padding:9px 13px}.red{background:var(--red);color:white;padding:9px 13px}.teal{background:var(--teal);color:white;padding:9px 13px}.status{font-weight:bold;color:var(--maroon)}footer{background:var(--charcoal);color:white;text-align:center;padding:30px 15px}.login{max-width:350px;margin:80px auto;background:white;padding:30px}.login input{width:100%;padding:12px;margin:7px 0}.login button{width:100%;padding:12px;background:var(--maroon);color:white}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222;color:white;padding:12px 18px;display:none;z-index:50}.toast.show{display:block}@media(max-width:600px){.hero h1{font-size:32px}.nav .adminOpen{display:none}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="brand">Selection <span>Fashion World</span></div><div><a href="tel:+917817031856" style="color:white;margin-right:10px">+91 78170 31856</a><button class="adminOpen" onclick="openAdmin()">🔒 Admin</button><button class="cartBtn" onclick="openCart()">🛍 Cart (<span id="count">0</span>)</button></div></div></header>
+
+<section class="hero"><div style="color:var(--maroon);letter-spacing:3px;font-size:12px;font-weight:bold">MANOHARPURA · MATHURA</div><h1>Shop the Collection</h1><p>Men's, women's & kids' fashion — order directly from the store.</p></section>
+<div class="filters" id="filters"></div><main class="grid" id="grid"></main>
+<footer>Selection Fashion World · Sheel Tower, Bhuteshwar Rd, Manoharpura, Mathura · Open daily 11 AM – 10 PM</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer"><div class="drawerHead"><b>Your Cart</b><button onclick="closeCart()">✕</button></div><div class="cartItems" id="cartItems"></div><div class="drawerFoot"><b>Total: ₹<span id="total">0</span></b><label>Name</label><input id="name" placeholder="Full name"><label>Phone</label><input id="phone" placeholder="10-digit mobile number"><label>Address</label><textarea id="address" rows="3" placeholder="Full delivery address"></textarea><div><b>Payment Method</b></div><button class="pay active" id="upi" onclick="setPayment('UPI')">◉ UPI / Online Payment</button><button class="pay" id="cod" onclick="setPayment('COD')">○ Cash on Delivery</button><button class="checkout" onclick="placeOrder()">Place Order on WhatsApp</button><small>UPI payment verification is not automatic in this frontend-only demo. Owner can confirm payment on WhatsApp.</small></div></aside>
+
+<section class="admin" id="admin">
+<div id="loginView"><div class="login"><h2>Owner Login</h2><input id="pass" type="password" placeholder="Admin password"><button onclick="login()">Login</button><p id="err" style="color:red"></p></div></div>
+<div id="dash" style="display:none"><div class="adminHead"><b>Store Admin</b><button onclick="closeAdmin()">✕</button></div><div class="adminWrap"><div class="tabs"><button class="active" onclick="tab('orders',this)">Orders</button><button onclick="tab('products',this)">Products</button><button onclick="tab('delivery',this)">Delivery Boys</button></div>
+<div id="orders" class="panel active"></div>
+<div id="products" class="panel"><div class="box"><h3>Add Product</h3><div class="row"><input id="pn" placeholder="Name"><select id="pc"><option>Men</option><option>Women</option><option>Kids</option></select><input id="pp" type="number" placeholder="Price"><input id="pm" type="number" placeholder="MRP"><input id="pi" placeholder="Image URL"></div><button class="primary" onclick="addProduct()">Add Product</button></div><div id="plist"></div></div>
+<div id="delivery" class="panel"><div class="box"><h3>Add Delivery Boy</h3><div class="row"><input id="dn" placeholder="Name"><input id="dp" placeholder="WhatsApp number with 91"></div><button class="primary" onclick="addBoy()">Add</button></div><div id="blist"></div></div>
+</div></div></section>
+<div class="toast" id="toast"></div>
+
+<script>
+const OWNER_PHONE="917817031856";
+const ADMIN_PASSWORD_HASH="1e017cbce8aef8d862e64ff40c7eee0026beeaf11b5b769d33421959ba481265"; // SHA-256 of SELECTION7812
+
+const DEFAULT=[
+{id:1,name:"Kurta Set — Cotton",cat:"Men",price:1299,mrp:1799,stock:10,image:""},
+{id:2,name:"Formal Shirt — Slim Fit",cat:"Men",price:899,mrp:1199,stock:10,image:""},
+{id:3,name:"Denim Jeans",cat:"Men",price:1499,mrp:1999,stock:10,image:""},
+{id:4,name:"Nehru Jacket",cat:"Men",price:1799,mrp:2399,stock:10,image:""},
+{id:5,name:"Banarasi Silk Saree",cat:"Women",price:2999,mrp:3999,stock:10,image:""},
+{id:6,name:"Anarkali Suit Set",cat:"Women",price:2199,mrp:2899,stock:10,image:""},
+{id:7,name:"Designer Kurti",cat:"Women",price:799,mrp:1099,stock:10,image:""},
+{id:8,name:"Palazzo Co-ord Set",cat:"Women",price:1399,mrp:1899,stock:10,image:""},
+{id:9,name:"Kids Ethnic Set",cat:"Kids",price:699,mrp:999,stock:10,image:""},
+{id:10,name:"Kids Casual Tee & Shorts",cat:"Kids",price:499,mrp:699,stock:10,image:""},
+{id:11,name:"Kids Party Frock",cat:"Kids",price:899,mrp:1299,stock:10,image:""},
+{id:12,name:"Kids School Trouser",cat:"Kids",price:449,mrp:599,stock:10,image:""}];
+
+let products=JSON.parse(localStorage.getItem("sfw_products")||"null")||DEFAULT;
+let orders=JSON.parse(localStorage.getItem("sfw_orders")||"[]");
+let boys=JSON.parse(localStorage.getItem("sfw_boys")||"[]");
+let cart=JSON.parse(localStorage.getItem("sfw_cart")||"{}");
+let filter="All",payment="UPI";
+
+function save(){localStorage.setItem("sfw_products",JSON.stringify(products));localStorage.setItem("sfw_orders",JSON.stringify(orders));localStorage.setItem("sfw_boys",JSON.stringify(boys));localStorage.setItem("sfw_cart",JSON.stringify(cart))}
+function toast(x){let t=document.getElementById("toast");t.textContent=x;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+function render(){
+ let cats=["All","Men","Women","Kids"];document.getElementById("filters").innerHTML=cats.map(c=>`<button class="filter ${filter==c?"active":""}" onclick="filter='${c}';render()">${c}</button>`).join("");
+ let list=filter=="All"?products:products.filter(p=>p.cat==filter);
+ document.getElementById("grid").innerHTML=list.map(p=>`<article class="card"><div class="pic">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:`<div class="noimg">Product Image<br>${esc(p.name)}</div>`}</div><div class="body"><h3>${esc(p.name)}</h3><div class="cat">${p.cat}</div><div class="price">₹${p.price.toLocaleString()} <span class="mrp">₹${p.mrp.toLocaleString()}</span></div><button class="add" ${p.stock<1?"disabled":""} onclick="add(${p.id})">${p.stock<1?"Out of stock":"Add to Cart"}</button></div></article>`).join("");
+ renderCart();
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function add(id){cart[id]=(cart[id]||0)+1;save();renderCart();toast("Added to cart")}
+function renderCart(){let keys=Object.keys(cart);document.getElementById("count").textContent=keys.reduce((a,k)=>a+cart[k],0);let total=0;document.getElementById("cartItems").innerHTML=keys.length?keys.map(k=>{let p=products.find(x=>x.id==k),q=cart[k];if(!p)return "";total+=p.price*q;return `<div class="item"><b>${esc(p.name)}</b><div>₹${p.price} × ${q} = ₹${p.price*q}</div><div class="qty"><button onclick="change(${p.id},-1)">−</button> ${q} <button onclick="change(${p.id},1)">+</button></div></div>`}).join(""):`<p style="text-align:center;opacity:.6">Your cart is empty.</p>`;document.getElementById("total").textContent=total.toLocaleString()}
+function change(id,n){cart[id]=(cart[id]||0)+n;if(cart[id]<=0)delete cart[id];save();renderCart()}
+function openCart(){document.getElementById("overlay").classList.add("show");document.getElementById("drawer").classList.add("show")}
+function closeCart(){document.getElementById("overlay").classList.remove("show");document.getElementById("drawer").classList.remove("show")}
+function setPayment(x){payment=x;document.getElementById("upi").classList.toggle("active",x=="UPI");document.getElementById("cod").classList.toggle("active",x=="COD")}
+function placeOrder(){
+ let keys=Object.keys(cart),name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim();
+ if(!keys.length)return toast("Cart is empty");if(!name||!/^[0-9]{10}$/.test(phone)||!address)return toast("Name, valid 10-digit phone and address required");
+ let total=0,items=[];keys.forEach(k=>{let p=products.find(x=>x.id==k);if(p){total+=p.price*cart[k];items.push({name:p.name,qty:cart[k],price:p.price})}});
+ let id="SF"+Date.now().toString().slice(-6),o={id,name,phone,address,items,total,payment,paymentStatus:payment=="UPI"?"Awaiting online confirmation":"Pending COD",status:"New",boy:null,created:new Date().toISOString()};
+ orders.unshift(o);cart={};save();renderCart();
+ let msg=`*Selection Fashion World — New Order*%0AOrder: ${id}%0AName: ${encodeURIComponent(name)}%0APhone: ${phone}%0AAddress: ${encodeURIComponent(address)}%0APayment: ${payment}%0ATotal: ₹${total}%0AItems:%0A${encodeURIComponent(items.map(i=>`${i.name} × ${i.qty} = ₹${i.price*i.qty}`).join("\n"))}`;
+ window.open(`https://wa.me/${OWNER_PHONE}?text=${msg}`,"_blank");closeCart();toast("Order created")}
+async function login(){let p=document.getElementById("pass").value,d=new TextEncoder().encode(p),b=await crypto.subtle.digest("SHA-256",d),h=Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");if(h===ADMIN_PASSWORD_HASH){document.getElementById("loginView").style.display="none";document.getElementById("dash").style.display="block";renderAdmin()}else document.getElementById("err").textContent="Wrong password"}
+function openAdmin(){document.getElementById("admin").classList.add("show")}function closeAdmin(){document.getElementById("admin").classList.remove("show")}
+function tab(id,btn){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderAdmin()}
+function renderAdmin(){renderOrders();renderProducts();renderBoys()}
+function renderOrders(){document.getElementById("orders").innerHTML=orders.length?orders.map(o=>`<div class="order"><b>${o.id}</b> · ${new Date(o.created).toLocaleString()}<p><b>${esc(o.name)}</b> · ${esc(o.phone)}<br>${esc(o.address)}</p><div>${o.items.map(i=>`${esc(i.name)} × ${i.qty}`).join(", ")}</div><p>₹${o.total.toLocaleString()} · <b>${o.payment}</b> · <span class="status">${o.paymentStatus}</span></p><div class="row"><select onchange="orderStatus('${o.id}',this.value)">${["New","Packed","Out for Delivery","Delivered","Cancelled"].map(s=>`<option ${o.status==s?"selected":""}>${s}</option>`).join("")}</select><select onchange="assign('${o.id}',this.value)"><option value="">Assign delivery boy</option>${boys.map(b=>`<option value="${b.id}" ${o.boy==b.id?"selected":""}>${esc(b.name)}</option>`).join("")}</select>${o.payment=="COD"&&o.status=="Out for Delivery"?`<button class="green" onclick="collect('${o.id}')">💵 Payment Collected</button>`:""}<button class="teal" onclick="waCustomer('${o.phone}','${o.id}')">WhatsApp</button></div></div>`).join(""):`<div class="box">No orders yet.</div>`}
+function orderStatus(id,s){let o=orders.find(x=>x.id==id);if(o){o.status=s;if(s=="Delivered"&&o.payment=="COD"&&o.paymentStatus=="Pending COD")o.paymentStatus="Collected";save();renderOrders()}}
+function assign(id,b){let o=orders.find(x=>x.id==id);if(o){o.boy=b||null;if(b)o.status="Out for Delivery";save();renderAdmin();if(b){let d=boys.find(x=>x.id==b);let msg=`New delivery assigned ${id}%0ACustomer: ${o.name}%0AAddress: ${o.address}%0AAmount: ₹${o.total}%0APayment: ${o.payment}`;window.open(`https://wa.me/${d.phone}?text=${msg}`,"_blank")}}}
+function collect(id){let o=orders.find(x=>x.id==id);if(o){if(confirm(`Confirm ₹${o.total} received from customer?`)){o.paymentStatus="Collected";o.status="Delivered";save();renderAdmin();toast("Payment collected & order delivered")}}}
+function waCustomer(phone,id){let o=orders.find(x=>x.id==id);window.open(`https://wa.me/91${phone}?text=${encodeURIComponent("Selection Fashion World: Order "+id+" update — "+o.status)}`,"_blank")}
+function addProduct(){let name=document.getElementById("pn").value.trim(),cat=document.getElementById("pc").value,price=+document.getElementById("pp").value,mrp=+document.getElementById("pm").value,image=document.getElementById("pi").value.trim();if(!name||!price)return toast("Product name and price required");products.push({id:Date.now(),name,cat,price,mrp:mrp||price,stock:10,image});save();render();renderProducts();["pn","pp","pm","pi"].forEach(id=>document.getElementById(id).value="");toast("Product added")}
+function renderProducts(){document.getElementById("plist").innerHTML=products.map(p=>`<div class="box"><div class="row"><input value="${esc(p.name)}" onchange="editP(${p.id},'name',this.value)"><select onchange="editP(${p.id},'cat',this.value)"><option ${p.cat=="Men"?"selected":""}>Men</option><option ${p.cat=="Women"?"selected":""}>Women</option><option ${p.cat=="Kids"?"selected":""}>Kids</option></select><input type="number" value="${p.price}" onchange="editP(${p.id},'price',+this.value)"><input type="number" value="${p.stock}" onchange="editP(${p.id},'stock',+this.value)"><button class="red" onclick="delP(${p.id})">Delete</button></div></div>`).join("")}
+function editP(id,k,v){let p=products.find(x=>x.id==id);if(p){p[k]=v;save();render()}}function delP(id){if(confirm("Delete product?")){products=products.filter(p=>p.id!=id);save();render();renderProducts()}}
+function addBoy(){let name=document.getElementById("dn").value.trim(),phone=document.getElementById("dp").value.trim();if(!name||!/^[0-9]{10,12}$/.test(phone))return toast("Enter name and valid WhatsApp number");boys.push({id:Date.now(),name,phone});save();renderBoys();document.getElementById("dn").value="";document.getElementById("dp").value=""}
+function renderBoys(){document.getElementById("blist").innerHTML=boys.map(b=>`<div class="delivery"><b>${esc(b.name)}</b> · ${esc(b.phone)} <button class="red" onclick="delBoy(${b.id})">Remove</button><h4>Assigned Orders</h4>${orders.filter(o=>o.boy==b.id&&o.status!="Delivered").map(o=>`<div class="box">${o.id} — ₹${o.total} — ${o.status} ${o.payment=="COD"?`<button class="green" onclick="collect('${o.id}')">💵 Payment Collected</button>`:""} <button class="teal" onclick="waCustomer('${o.phone}','${o.id}')">WhatsApp</button></div>`).join("")||"<small>No active orders.</small>"}</div>`).join("")}
+function delBoy(id){boys=boys.filter(x=>x.id!=id);orders.forEach(o=>{if(o.boy==id)o.boy=null});save();renderAdmin()}
+render();
+</script>
+</body>
+</html>
